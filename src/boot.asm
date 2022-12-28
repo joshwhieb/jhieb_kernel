@@ -1,6 +1,8 @@
 ORG 0
 BITS 16
 
+jmp 0x7c0:start
+
 start:
     cli ; Clear Interrupts
     mov ax, 0x7c0
