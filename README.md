@@ -30,3 +30,16 @@ ndisasm ./boot.asm
 ```
 qemu-system-x86_64 -hda ./boot.bin
 ```
+
+## Writing the bootloader to USB
+
+list disks to find USB
+
+```
+fdisk -l
+```
+
+write bin to usb
+```
+sudo dd if=./boot.bin of=/dev/sdb
+```
