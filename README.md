@@ -3,6 +3,8 @@ source code for kernel course.
 
 https://www.udemy.com/course/developing-a-multithreaded-kernel-from-scratch/
 
+https://wiki.osdev.org/Main_Page
+
 ## Setup
 
 details in the docker_dev/Dockerfile definition.
