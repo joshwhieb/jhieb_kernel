@@ -13,7 +13,7 @@ print:
     cmp al, 0
     je .done
     call print_char
-    jump .loop
+    jmp .loop
 .done:
     ret
 
