@@ -1,6 +1,7 @@
 FROM ubuntu:lunar-20221207
 
 RUN apt update
+RUN apt install bless -y
 RUN apt install cmake -y
 RUN apt install gcc -y
 RUN apt install gdb -y
