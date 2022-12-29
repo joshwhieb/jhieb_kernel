@@ -13,9 +13,18 @@ Might need VM setup until i figure out how to expose qemu system from docker.
 
 ## Building the boot loader
 
+with nasm
+
 ```
 cd src
 nasm -f bin ./boot.asm -o ./boot.bin
+```
+
+with make
+
+```
+cd src
+make
 ```
 
 ## Deassemble the boot loader

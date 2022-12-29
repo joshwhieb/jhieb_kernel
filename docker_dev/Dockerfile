@@ -4,6 +4,7 @@ RUN apt update
 RUN apt install cmake -y
 RUN apt install gcc -y
 RUN apt install gdb -y
+RUN apt install make -y
 RUN apt install nasm -y
 RUN apt install qemu-system-x86 -y
 
