@@ -10,19 +10,6 @@ times 33 db 0 ; write BPB (Bios parameter block)
 start:
     jmp 0x7c0:step2
 
-handle_zero:  ; Overriding the IVT with a divide by 0 print A to screen.
-    mov ah, 0eh
-    mov al, 'A'
-    mov bx, 0x00
-    int 0x10
-    iret
-
-handle_one:
-    mov ah, 0eh
-    mov al, 'V'
-    mov bx, 0x00
-    int 0x10
-    iret
 
 step2:
     cli ; Clear Interrupts
@@ -34,17 +21,25 @@ step2:
     mov sp, 0x7c00
     sti ; Enables Interrupts
 
-    ; Writing the interrupt 0 to the IVT
-    mov word[ss:0x00], handle_zero
-    mov word[ss:0x02], 0x7c0
+    ; read from disk
+    mov ah, 2 ; read sector command
+    mov al, 1 ; one sector
+    mov ch, 0 ; cylinder low eight bits
+    mov cl, 2 ; read sector two
+    mov dh, 0 ; head number
+    mov bx, buffer
+    int 0x13
+    jc error
 
-    mov word[ss:0x04], handle_one
-    mov word[ss:0x06], 0x7c0
-
-    ;int 1
-
-    mov si, message
+    mov si, buffer
     call print
+    
+    jmp $
+
+error:
+    mov si, error_message
+    call print
+
     jmp $
 
 print:
@@ -63,7 +58,9 @@ print_char:
     int 0x10
     ret
 
-message: db 'Hello World!', 0
+error_message: db 'Failed to load sector', 0
 
 times 510- ($ - $$) db 0
 dw 0xAA55
+
+buffer: ; used as space to load from disk

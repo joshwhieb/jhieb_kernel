@@ -5,6 +5,8 @@ https://www.udemy.com/course/developing-a-multithreaded-kernel-from-scratch/
 
 https://wiki.osdev.org/Main_Page
 
+https://www.ctyme.com/rbrown.htm
+
 ## Setup
 
 details in the docker_dev/Dockerfile definition.
