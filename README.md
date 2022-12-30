@@ -54,3 +54,16 @@ write bin to usb
 ```
 sudo dd if=./boot.bin of=/dev/sdb
 ```
+
+## GDB debugging
+
+```
+cd src
+make
+gdb
+target remote | qemu-system-x86_64 -hda ./boot.bin -S -gdb stdio
+c
+ctrl+c
+layout asm
+info registers
+```
