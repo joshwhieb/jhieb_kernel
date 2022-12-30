@@ -18,28 +18,25 @@ Might need VM setup until i figure out how to expose qemu system from docker.
 with nasm
 
 ```
-cd src
-nasm -f bin ./boot.asm -o ./boot.bin
+nasm -f bin ./src/boot/boot.asm -o ./bin/boot.bin
 ```
 
 with make
 
 ```
-cd src
 make
 ```
 
 ## Deassemble the boot loader
 
 ```
-cd src
-ndisasm ./boot.asm
+ndisasm ./bin/boot.bin
 ```
 
 ## Running the bootloader in QEMU
 
 ```
-qemu-system-x86_64 -hda ./boot.bin
+qemu-system-x86_64 -hda ./bin/boot.bin
 ```
 
 ## Writing the bootloader to USB
@@ -52,7 +49,7 @@ fdisk -l
 
 write bin to usb
 ```
-sudo dd if=./boot.bin of=/dev/sdb
+sudo dd if=./bin/boot.bin of=/dev/sdb
 ```
 
 ## GDB debugging
@@ -61,7 +58,7 @@ sudo dd if=./boot.bin of=/dev/sdb
 cd src
 make
 gdb
-target remote | qemu-system-x86_64 -hda ./boot.bin -S -gdb stdio
+target remote | qemu-system-x86_64 -hda ./bin/boot.bin -S -gdb stdio
 c
 ctrl+c
 layout asm
