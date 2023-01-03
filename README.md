@@ -55,7 +55,6 @@ sudo dd if=./bin/boot.bin of=/dev/sdb
 ## GDB debugging
 
 ```
-cd src
 make
 gdb
 target remote | qemu-system-x86_64 -hda ./bin/boot.bin -S -gdb stdio
