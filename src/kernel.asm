@@ -1,4 +1,5 @@
 
+; 32 bit code past this point.
 [BITS 32]
 global _start
 

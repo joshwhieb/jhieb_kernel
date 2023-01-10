@@ -32,7 +32,7 @@ ndisasm ./bin/boot.bin
 ## Running the bootloader in QEMU
 
 ```
-qemu-system-x86_64 -hda ./bin/boot.bin
+qemu-system-x86_64 -hda ./bin/os.bin
 ```
 
 ## Writing the bootloader to USB
@@ -45,7 +45,7 @@ fdisk -l
 
 write bin to usb
 ```
-sudo dd if=./bin/boot.bin of=/dev/sdb
+sudo dd if=./bin/os.bin of=/dev/sdb
 ```
 
 ## GDB debugging
@@ -53,7 +53,9 @@ sudo dd if=./bin/boot.bin of=/dev/sdb
 ```
 make
 gdb
-target remote | qemu-system-x86_64 -hda ./bin/boot.bin -S -gdb stdio
+add-symbol-file build/kernelfull.o 0x100000
+break _start
+target remote | qemu-system-x86_64 -hda ./bin/os.bin -S -gdb stdio
 c
 ctrl+c
 layout asm
