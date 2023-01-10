@@ -1,12 +1,21 @@
 FROM ubuntu:lunar-20221207
 
 RUN apt update
+RUN apt install bison -y
 RUN apt install bless -y
+RUN apt install build-essential -y
 RUN apt install cmake -y
+RUN apt install flex -y
 RUN apt install gcc -y
 RUN apt install gdb -y
+RUN apt install libcloog-isl-dev -y
+RUN apt install libgmp3-dev -y
+RUN apt install libisl-dev -y
+RUN apt install libmpc-dev -y
+RUN apt install libmpfr-dev -y
 RUN apt install make -y
 RUN apt install nasm -y
+RUN apt install texinfo -y
 RUN apt install qemu-system-x86 -y
 
 ARG USERNAME=administrator

@@ -13,18 +13,14 @@ details in the docker_dev/Dockerfile definition.
 
 Might need VM setup until i figure out how to expose qemu system from docker.
 
-## Building the boot loader
+TODO(jhieb) add cross compiling support to docker container.
 
-with nasm
+https://wiki.osdev.org/GCC_Cross-Compiler
 
-```
-nasm -f bin ./src/boot/boot.asm -o ./bin/boot.bin
-```
-
-with make
+## Building the boot loader and kernel
 
 ```
-make
+./build.sh
 ```
 
 ## Deassemble the boot loader
