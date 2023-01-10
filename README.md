@@ -58,6 +58,9 @@ break _start
 target remote | qemu-system-x86_64 -hda ./bin/os.bin -S -gdb stdio
 c
 ctrl+c
+bt
 layout asm
+stepi
 info registers
+
 ```
