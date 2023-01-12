@@ -2,6 +2,7 @@
 ; 32 bit code past this point.
 [BITS 32]
 global _start
+
 extern kernel_main
 
 CODE_SEG equ 0x08
