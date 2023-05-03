@@ -51,11 +51,15 @@ sudo dd if=./bin/os.bin of=/dev/sdb
 ## GDB debugging
 
 ```
-make
+make clean
+build.sh
 gdb
 add-symbol-file build/kernelfull.o 0x100000
 break _start
 target remote | qemu-system-x86_64 -hda ./bin/os.bin -S -gdb stdio
+
+or target remote | qemu-system-i386 ... for 32 bit.
+
 c
 ctrl+c
 bt
