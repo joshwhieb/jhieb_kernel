@@ -28,7 +28,7 @@ DriveNumber         db 0x80
 WinNTBit            db 0x00
 Signature           db 0x29
 VolumeID            dd 0xD105
-VOlumeIDString      db 'JHIEBOS BOO'
+VolumeIDString      db 'JHIEBOS BOO'
 SystemIDString      db 'FAT16   '
 
 
