@@ -56,9 +56,9 @@ build.sh
 gdb
 add-symbol-file build/kernelfull.o 0x100000
 break _start
-target remote | qemu-system-x86_64 -hda ./bin/os.bin -S -gdb stdio
+target remote | qemu-system-i386 -hda ./bin/os.bin -S -gdb stdio
 
-or target remote | qemu-system-i386 ... for 32 bit.
+or target remote | qemu-system-x86_64 ... for 64 bit.
 
 c
 ctrl+c
