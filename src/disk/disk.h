@@ -11,6 +11,9 @@ typedef unsigned int JHIEBOS_DISK_TYPE;
 struct disk {
     JHIEBOS_DISK_TYPE type;
     int sector_size;
+    int id;
+    // Private data of the filesystem.
+    void* fs_private;
 
     struct filesystem* filesystem;
 };
