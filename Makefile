@@ -1,8 +1,8 @@
-FILES = ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/gdt/gdt.o ./build/gdt/gdt.asm.o ./build/memory/memory.o ./build/io/io.asm.o ./build/task/tss.asm.o ./build/task/task.o ./build/task/process.o ./build/memory/heap/heap.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o ./build/disk/disk.o ./build/fs/pparser.o ./build/fs/file.o ./build/fs/fat/fat16.o ./build/string/string.o ./build/disk/streamer.o
+FILES = ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/gdt/gdt.o ./build/gdt/gdt.asm.o ./build/memory/memory.o ./build/io/io.asm.o ./build/task/tss.asm.o ./build/task/task.o ./build/task/task.asm.o ./build/task/process.o ./build/memory/heap/heap.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o ./build/disk/disk.o ./build/fs/pparser.o ./build/fs/file.o ./build/fs/fat/fat16.o ./build/string/string.o ./build/disk/streamer.o
 INCLUDES = -I./src
 FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
 
-all: ./bin/boot.bin ./bin/kernel.bin
+all: ./bin/boot.bin ./bin/kernel.bin user_programs
 	rm -rf ./bin/os.bin
 	dd if=./bin/boot.bin >> ./bin/os.bin
 	dd if=./bin/kernel.bin >> ./bin/os.bin
@@ -49,6 +49,10 @@ all: ./bin/boot.bin ./bin/kernel.bin
 ./build/io/io.asm.o: ./src/io/io.asm
 	mkdir -p build/io
 	nasm -f elf -g ./src/io/io.asm -o ./build/io/io.asm.o
+
+./build/task/task.asm.o: ./src/task/task.asm
+	mkdir -p build/task
+	nasm -f elf -g ./src/task/task.asm -o ./build/task/task.asm.o
 
 ./build/task/tss.asm.o: ./src/task/tss.asm
 	mkdir -p build/task
@@ -101,7 +105,12 @@ all: ./bin/boot.bin ./bin/kernel.bin
 	mkdir -p build/string
 	i686-elf-gcc $(INCLUDES) $(FLAGS) -I./src/string -std=gnu99 -c ./src/string/string.c -o ./build/string/string.o
 
+user_programs:
+	cd ./programs/blank && $(MAKE) all
 
-clean:
+user_programs_clean:
+	cd ./programs/blank && $(MAKE) clean
+
+clean: user_programs_clean
 	rm -rf build
 	rm -rf bin
