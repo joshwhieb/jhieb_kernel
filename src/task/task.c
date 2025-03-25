@@ -33,6 +33,7 @@ struct task* task_new(struct process* process){
     if(task_head == 0){
         task_head = task;
         task_tail = task;
+        current_task = task;
         goto out;
     }
 
@@ -98,7 +99,7 @@ int task_page(){
 }
 
 void task_run_first_ever_task(){
-    if(current_task){
+    if(!current_task){
         panic("task_run_first_ever_task(): no current task exists!\n");
     }
     task_switch(task_head);
@@ -115,6 +116,7 @@ int task_init(struct task* task, struct process* process){
 
     task->registers.ip = JHIEBOS_PROGRAM_VIRTUAL_ADDRESS;
     task->registers.ss = USER_DATA_SEGMENT;
+    task->registers.cs = USER_CODE_SEGMENT;
     task->registers.esp = JHIEBOS_PROGRAM_VIRTUAL_STACK_ADDRESS_START;
 
     task->process = process;
