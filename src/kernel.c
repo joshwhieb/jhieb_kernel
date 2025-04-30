@@ -7,6 +7,7 @@
 #include "memory/heap/kheap.h"
 #include "memory/paging/paging.h"
 #include "string/string.h"
+#include "isr80h/isr80h.h"
 #include "task/task.h"
 #include "task/process.h"
 #include "fs/file.h"
@@ -73,6 +74,11 @@ void panic(const char* msg){
     while(1) {}
 }
 
+void kernel_page(){
+    kernel_registers();
+    paging_switch(kernel_chunk);
+}
+
 struct tss tss;
 struct gdt gdt_real[JHIEBOS_TOTAL_GDT_SEGMENTS];
 struct gdt_structured gdt_structured[JHIEBOS_TOTAL_GDT_SEGMENTS] = {
@@ -119,6 +125,9 @@ void kernel_main()
 
     // enable paging.
     enable_paging();
+
+    // register the kernel commands.
+    isr80h_register_commands();
 
     struct process* process =0;
     int res = process_load("0:/blank.bin", &process);
